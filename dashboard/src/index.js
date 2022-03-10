@@ -106,11 +106,24 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{/* status */}</div>
           <ol>{/* TODO */}</ol>
+          <h1>Hello React World!!</h1>
         </div>
       </div>
     );
   }
 }
+
+function getDB () {
+  let reqOption = {
+    method : "get",
+    headers : {
+      "content-type" : "application/json"
+    }
+  }
+
+  fetch("http://localhost:8000/users", reqOption).then((res) => res.json()).then(data => console.log(data));
+}
+
 
 function calculateWinner(squares) {
   const lines = [
