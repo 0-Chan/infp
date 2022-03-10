@@ -1,8 +1,54 @@
-from typing import Optional
+# from typing import Optional
 
-from fastapi import FastAPI, Depends, HTTPException
-from pydantic import BaseModel
+# from fastapi import FastAPI, Depends, HTTPException
+# from pydantic import BaseModel
 
+# from sqlalchemy.orm import Session
+
+# from . import crud, models, schemas
+# from .database import SessionLocal, engine
+
+# models.Base.metadata.create_all(bind=engine)
+
+# app = FastAPI()
+
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "wooooooooorrrrrrrrld"}
+
+# @app.get("/api/")
+# async def hello():
+#     return {"msg":"Hello, this is API server"}
+
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Optional[str] = None):
+#     return {"item_id": item_id, "q": q}
+
+# class Contact(BaseModel):
+#   contact_id:int
+#   first_name:str
+#   last_name:str
+#   user_name:str
+#   password:str
+
+# class ContactOut(BaseModel):
+#     contact_id:int
+#     first_name:str
+#     last_name:str
+#     user_name:str
+
+# # @app.post('/contact')
+# # async def create_contact(contact: Contact):
+# #     return contact
+
+# @app.post('/contact', response_model=ContactOut)
+# async def create_contact(contact: Contact):
+#     return contact
+
+
+from typing import List
+
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
@@ -12,41 +58,8 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "wooooooooorrrrrrrrld"}
 
-@app.get("/api/")
-async def hello():
-    return {"msg":"Hello, this is API server"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
-
-class Contact(BaseModel):
-  contact_id:int
-  first_name:str
-  last_name:str
-  user_name:str
-  password:str
-
-class ContactOut(BaseModel):
-    contact_id:int
-    first_name:str
-    last_name:str
-    user_name:str
-
-# @app.post('/contact')
-# async def create_contact(contact: Contact):
-#     return contact
-
-@app.post('/contact', response_model=ContactOut)
-async def create_contact(contact: Contact):
-    return contact
-
-
-    # Dependency
+# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -63,7 +76,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 
-@app.get("/users/", response_model=Optional[schemas.User])
+@app.get("/users/", response_model=List[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
@@ -82,3 +95,9 @@ def create_item_for_user(
     user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
 ):
     return crud.create_user_item(db=db, item=item, user_id=user_id)
+
+
+@app.get("/items/", response_model=List[schemas.Item])
+def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    items = crud.get_items(db, skip=skip, limit=limit)
+    return items
