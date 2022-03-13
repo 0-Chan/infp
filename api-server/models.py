@@ -30,8 +30,6 @@ class Receipt(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String, index=True)
-    from_c = Column("from", Integer)
-    to = Column(Integer)
-    message = Column(String, index=True)
-    is_test = Column(Boolean, default=True)
-    
+    from_ = Column("from", String)
+    to = Column(String)
+    message = Column(String)

@@ -35,8 +35,15 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+# def create_receipt(db: Session, receipt: schemas.ReceiptCreate):
+#     db_receipt = models.Receipt(date=receipt.date, from_=receipt.from_, to=receipt.to, message=receipt.message)
+#     db.add(db_receipt)
+#     db.commit()
+#     db.refresh(db_receipt)
+#     return db_receipt
+
 def create_receipt(db: Session, receipt: schemas.ReceiptCreate):
-    db_receipt = models.Receipt(date=receipt.date, from_c=receipt.from_c, to=receipt.to, message=receipt.message)
+    db_receipt = models.Receipt(**receipt.dict())
     db.add(db_receipt)
     db.commit()
     db.refresh(db_receipt)

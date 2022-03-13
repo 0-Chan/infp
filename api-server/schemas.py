@@ -42,16 +42,20 @@ class User(UserBase):
 
 class ReceiptBase(BaseModel):
     date: str
-    from_c: int
-    to: int
+    from_: str = None
+    to: str
     message: str
 
+    class Config:
+        fields = {
+            'from_': 'from'
+        }
+        
 class ReceiptCreate(ReceiptBase):
     pass
 
 class Receipt(ReceiptBase):
-    id: int
-    is_test: bool
+    # id: int
     
     class Config:
         orm_mode = True
