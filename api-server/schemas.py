@@ -42,7 +42,7 @@ class User(UserBase):
 
 class ReceiptBase(BaseModel):
     date: str
-    from: int
+    from_c: int
     to: int
     message: str
 
