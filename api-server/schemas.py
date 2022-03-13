@@ -19,6 +19,7 @@ class Item(ItemBase):
     class Config:
         orm_mode = True
 
+###########################################
 
 class UserBase(BaseModel):
     email: str
@@ -33,5 +34,24 @@ class User(UserBase):
     is_active: bool
     items: List[Item] = []
 
+    class Config:
+        orm_mode = True
+
+###########################################
+
+
+class ReceiptBase(BaseModel):
+    date: str
+    from: int
+    to: int
+    message: str
+
+class ReceiptCreate(ReceiptBase):
+    pass
+
+class Receipt(ReceiptBase):
+    id: int
+    is_test: bool
+    
     class Config:
         orm_mode = True

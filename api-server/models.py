@@ -24,3 +24,14 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+class Receipt(Base):
+    __tablename__ = "receipt"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String, index=True)
+    from = Column(Integer)
+    to = Column(Integer)
+    message = Column(String, index=True)
+    is_test = Column(Boolean, default=True)
+    
