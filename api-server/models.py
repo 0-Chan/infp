@@ -33,3 +33,14 @@ class Receipt(Base):
     from_ = Column("from", String)
     to = Column(String)
     message = Column(String)
+
+class Receipt2(Base):
+    __tablename__ = "receipt2"
+
+    id = Column(Integer, primary_key=True, index=True)
+    payer = Column(String)
+    expense = Column(Integer)
+    installment = Column(Integer)
+    date = Column(String, index=True)
+    store = Column(String)
+    total_expense = Column(Integer)
