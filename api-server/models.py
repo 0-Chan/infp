@@ -38,9 +38,10 @@ class Receipt2(Base):
     __tablename__ = "receipt2"
 
     id = Column(Integer, primary_key=True, index=True)
+    is_refund = Column(Boolean, default=False)
     payer = Column(String)
     expense = Column(Integer)
-    installment = Column(Integer)
+    installment = Column(Integer, default=0)
     date = Column(String, index=True)
     store = Column(String)
     total_expense = Column(Integer)

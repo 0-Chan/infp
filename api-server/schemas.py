@@ -7,10 +7,8 @@ class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
 
-
 class ItemCreate(ItemBase):
     pass
-
 
 class Item(ItemBase):
     id: int
@@ -24,10 +22,8 @@ class Item(ItemBase):
 class UserBase(BaseModel):
     email: str
 
-
 class UserCreate(UserBase):
     password: str
-
 
 class User(UserBase):
     id: int
@@ -55,7 +51,36 @@ class ReceiptCreate(ReceiptBase):
     pass
 
 class Receipt(ReceiptBase):
-    # id: int
+
     
     class Config:
         orm_mode = True
+
+
+class Receipt2Base(BaseModel):
+    is_refund: bool
+    payer: str
+    expense: int
+    installment: int
+    date: str
+    store: str
+    total_expense: int
+        
+class Receipt2Create(Receipt2Base):
+    pass
+
+class Receipt2(Receipt2Base):
+
+    
+    class Config:
+        orm_mode = True
+
+
+    # id = Column(Integer, primary_key=True, index=True)
+    # is_refund = Column(Boolean)
+    # payer = Column(String)
+    # expense = Column(Integer)
+    # installment = Column(Integer)
+    # date = Column(String, index=True)
+    # store = Column(String)
+    # total_expense = Column(Integer)
