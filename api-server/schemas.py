@@ -74,8 +74,25 @@ class Receipt2(Receipt2Base):
     
     class Config:
         orm_mode = True
+###########################################
+class Receipt3Base(BaseModel):
+    pkg: str
+    title: str
+    text: str
+    subtext: str
+    bigtext: str
+    infotext: str
+    token: str
 
+class Receipt3Create(Receipt3Base):
+    pass
 
+class Receipt3(Receipt3Base):
+
+    
+    class Config:
+        orm_mode = True
+###########################################
     # id = Column(Integer, primary_key=True, index=True)
     # is_refund = Column(Boolean)
     # payer = Column(String)

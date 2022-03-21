@@ -45,3 +45,24 @@ class Receipt2(Base):
     date = Column(String, index=True)
     store = Column(String)
     total_expense = Column(Integer)
+
+class Receipt3(Base):
+    __tablename__ = "receipt3"
+
+    id = Column(Integer, primary_key=True, index=True)
+    pkg = Column(String)
+    title = Column(String)
+    text = Column(String)
+    subtext = Column(String)
+    bigtext = Column(String)
+    infotext = Column(String)
+    token = Column(String)
+
+# name
+# pkg
+# title
+# text
+# subtext
+# bigtext
+# infotext
+# token
