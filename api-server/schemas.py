@@ -89,7 +89,6 @@ class Receipt3Create(Receipt3Base):
 
 class Receipt3(Receipt3Base):
 
-    
     class Config:
         orm_mode = True
 ###########################################
