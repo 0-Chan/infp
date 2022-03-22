@@ -45,7 +45,7 @@
 # async def create_contact(contact: Contact):
 #     return contact
 
-
+import logging
 from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
