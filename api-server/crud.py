@@ -95,8 +95,16 @@ def create_receipt2(db: Session, receipt: schemas.ReceiptCreate):
     db.refresh(db_receipt)
     return db_receipt
 
+# def create_receipt3(db: Session, receipt: schemas.Receipt3Create):
+#   db_receipt = models.Receipt3(**receipt.dict())
+#   db.add(db_receipt)
+#   db.commit()
+#   db.refresh(db_receipt)
+#   return db_receipt
+
 def create_receipt3(db: Session, receipt: schemas.Receipt3Create):
-  db_receipt = models.Receipt3(**receipt.dict())
+  db_receipt = models.Receipt3(name=receipt3.name, pkg=receipt3.pkg, title=receipt3.title, text=receipt3.text, subtext=receipt3.subtext, bigtext=receipt3.bigtext, infotext=receipt3.infotext)
+  # db_receipt = models.Receipt3(**receipt.dict())
   db.add(db_receipt)
   db.commit()
   db.refresh(db_receipt)
