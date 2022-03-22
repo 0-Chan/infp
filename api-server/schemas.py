@@ -76,10 +76,13 @@ class Receipt2(Receipt2Base):
         orm_mode = True
 ###########################################
 class Receipt3Base(BaseModel):
+    name: str
     pkg: str
     title: str
     text: str
-    bigText: str
+    subtext: str
+    bigtext: str
+    infotext: str
 
 class Receipt3Create(Receipt3Base):
     pass

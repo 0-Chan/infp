@@ -50,10 +50,13 @@ class Receipt3(Base):
     __tablename__ = "receipt3"
 
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String) 
     pkg = Column(String)
     title = Column(String)
     text = Column(String)
-    bigText = Column(String)
+    subtext = Column(String)
+    bigtext = Column(String)
+    infotext = Column(String)
 
 # name
 # pkg
