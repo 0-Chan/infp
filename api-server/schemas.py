@@ -80,9 +80,9 @@ class Receipt3Base(BaseModel):
     pkg: str
     title: str
     text: str
-    subtext: str
-    bigtext: str
-    infotext: str
+    subText: str
+    bigText: str
+    infoText: str
 
 class Receipt3Create(Receipt3Base):
     pass
