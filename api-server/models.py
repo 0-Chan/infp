@@ -54,6 +54,7 @@ class Receipt3(Base):
     pkg = Column(String)
     title = Column(String)
     text = Column(String)
+    bigtext = Column(String)
     token = Column(String)
     # subText = Column(String)
     # bigText = Column(String)

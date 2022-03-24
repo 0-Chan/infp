@@ -110,6 +110,7 @@ class Receipt3Base(BaseModel):
     pkg: str
     title: str
     text: str
+    bigtext: str
     token: str
 
 class Receipt3Create(Receipt3Base):
