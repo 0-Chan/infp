@@ -162,7 +162,7 @@ def create_receipt(receipt: schemas.ReceiptCreate, db: Session = Depends(get_db)
 def create_receipt2(receipt: schemas.ReceiptCreate, db: Session = Depends(get_db)):
     return crud.create_receipt2(db=db, receipt=receipt)
 
-@app.post("/receipt3", response_model=schemas.Receipt3)
+@app.post("/receipt3", response_model=schemas.Receipt2)
 def create_receipt3(request: Request, form: schemas.Receipt3Form = Depends(schemas.Receipt3Base.as_form), db: Session = Depends(get_db)):
     return crud.create_receipt3(db=db, receipt=form)
     # return form

@@ -90,29 +90,6 @@ def create_receipt2(db: Session, receipt: schemas.ReceiptCreate):
                                  store=store_tmp,
                                  total_expense=total_expense_tmp)
     
-  for i in range (0,len(split_lines)):
-      row[i] = split_lines[i].split(" ")
-
-  if row[0][0] != "김영찬":
-      payer_tmp = "hun"
-  else:
-      payer_tmp = "chan"
-
-  if row[0][4] != "승인":
-      is_refund_tmp = True
-
-  expense_tmp = row[0][5][:-1]
-  expense_tmp = int(expense_tmp.replace(',', ''))
-
-  if row[0][5] != "일시불":
-      installment_tmp = row[0][5][1:2]
-
-  date_tmp = str(datetime.date.today().year)+ '-' + row[0][7].replace('/', '-')
-
-  store_tmp = split_lines[1]
-
-  total_expense_tmp = int(split_lines[5][2:-1].replace(',', ''))
-
     db.add(db_receipt)
     db.commit()
     db.refresh(db_receipt)
@@ -135,22 +112,45 @@ def create_receipt2(db: Session, receipt: schemas.ReceiptCreate):
 #   return db_receipt
 
 def create_receipt3(db: Session, receipt: schemas.Receipt3Create):
-  bigtext=receipt.bigtext
-  is_refund_tmp = True
-  installment_tmp = 0
+    bigtext=receipt.bigtext
+    is_refund_tmp = True
+    installment_tmp = 0
 
-  split_lines = bigtext.split("\n")
-  row = [None] * len(split_lines)
-  print(split_lines)
+    split_lines = bigtext.split("\n")
+    row = [None] * len(split_lines)
+    print(split_lines)
 
-  db_receipt = models.Receipt2(is_refund=is_refund_tmp,
-                                payer=payer_tmp,
-                                expense=expense_tmp,
-                                installment=installment_tmp,
-                                date=date_tmp,
-                                store=store_tmp,
-                                total_expense=total_expense_tmp)
-  db.add(db_receipt)
-  db.commit()
-  db.refresh(db_receipt)
-  return db_receipt
+    for i in range (0,len(split_lines)):
+        row[i] = split_lines[i].split(" ")
+
+    if row[0][0] != "김영찬":
+        payer_tmp = "hun"
+    else:
+        payer_tmp = "chan"
+
+    if row[0][4] != "승인":
+        is_refund_tmp = True
+
+    expense_tmp = row[0][5][:-1]
+    expense_tmp = int(expense_tmp.replace(',', ''))
+
+    if row[0][6] != "일시불,":
+        installment_tmp = row[0][6][1:2]
+
+    date_tmp = str(datetime.date.today().year)+ '-' + row[0][7].replace('/', '-') + ' ' + row[0][8]
+
+    store_tmp = split_lines[1]
+
+    total_expense_tmp = int(split_lines[2][2:-1].replace(',', ''))
+
+    db_receipt = models.Receipt2(is_refund=is_refund_tmp,
+                                    payer=payer_tmp,
+                                    expense=expense_tmp,
+                                    installment=installment_tmp,
+                                    date=date_tmp,
+                                    store=store_tmp,
+                                    total_expense=total_expense_tmp)
+    db.add(db_receipt)
+    db.commit()
+    db.refresh(db_receipt)
+    return db_receipt
