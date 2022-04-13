@@ -55,6 +55,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from pydantic import BaseModel
+import httpx
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
@@ -163,7 +164,12 @@ def create_receipt2(receipt: schemas.ReceiptCreate, db: Session = Depends(get_db
     return crud.create_receipt2(db=db, receipt=receipt)
 
 @app.post("/receipt3", response_model=schemas.Receipt2)
-def create_receipt3(request: Request, form: schemas.Receipt3Form = Depends(schemas.Receipt3Base.as_form), db: Session = Depends(get_db)):
+async def create_receipt3(request: Request, form: schemas.Receipt3Form = Depends(schemas.Receipt3Base.as_form), db: Session = Depends(get_db)):
+    msg = {"text": form.bigtext}
+    print(msg)
+    async with httpx.AsyncClient() as client:
+        response = await client.post('https://hooks.slack.com/services/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', json=msg)
+        # URL hardcode part has to be changed.
     return crud.create_receipt3(db=db, receipt=form)
     # return form
 
