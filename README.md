@@ -1,8 +1,4 @@
-
-## 결과
-<img src="https://user-images.githubusercontent.com/50035753/173994748-d0f9832a-18fa-41e3-b61d-35623d2f4bbc.png" alt="slack_capture" width=35%>
-
-슬랙 api 호출 결과입니다. 실시간 카드 사용 내역을 슬랙 bot이 전달합니다.
+# 가계부 DB 저장과 Slack 알림을 동시에! (개인 사이드 프로젝트 - INFP)
 
 ## 과정
 - Before & After <br>
@@ -17,6 +13,11 @@ After : 제가 구축한 프로젝트는 다음과 같은 과정을 거칩니다
 3. FastAPI로 구축된 서버로 보냅니다.(post 요청)
 
 해당 서버에서 Sqlite DB에 사용 시간, 내역 등을 파싱하여 저장하고 및 슬랙 Webhook을 보내어 가계부 입력을 자동화합니다.
+
+## 결과
+<img src="https://user-images.githubusercontent.com/50035753/173994748-d0f9832a-18fa-41e3-b61d-35623d2f4bbc.png" alt="slack_capture" width=35%>
+
+슬랙 api 호출 결과입니다. 실시간 카드 사용 내역을 슬랙 bot이 전달합니다.
 
 ## 실행 방법
 
