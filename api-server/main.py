@@ -1,50 +1,3 @@
-# from typing import Optional
-
-# from fastapi import FastAPI, Depends, HTTPException
-# from pydantic import BaseModel
-
-# from sqlalchemy.orm import Session
-
-# from . import crud, models, schemas
-# from .database import SessionLocal, engine
-
-# models.Base.metadata.create_all(bind=engine)
-
-# app = FastAPI()
-
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "wooooooooorrrrrrrrld"}
-
-# @app.get("/api/")
-# async def hello():
-#     return {"msg":"Hello, this is API server"}
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Optional[str]):
-#     return {"item_id": item_id, "q": q}
-
-# class Contact(BaseModel):
-#   contact_id:int
-#   first_name:str
-#   last_name:str
-#   user_name:str
-#   password:str
-
-# class ContactOut(BaseModel):
-#     contact_id:int
-#     first_name:str
-#     last_name:str
-#     user_name:str
-
-# # @app.post('/contact')
-# # async def create_contact(contact: Contact):
-# #     return contact
-
-# @app.post('/contact', response_model=ContactOut)
-# async def create_contact(contact: Contact):
-#     return contact
-
 import inspect
 import logging
 from typing import List, Type, Optional
@@ -60,6 +13,9 @@ import httpx
 from . import crud, models, schemas
 from .database import SessionLocal, engine
 from pydantic.fields import ModelField
+
+# Put your own Slack webhook address
+WEBHOOK_ADDR = 'https://hooks.slack.com/services/';
 
 def as_form(cls: Type[BaseModel]):
     new_parameters = []
@@ -85,36 +41,9 @@ def as_form(cls: Type[BaseModel]):
     setattr(cls, 'as_form', as_form_func)
     return cls
 
-
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-
-# class AnyForm(BaseModel):
-#     any_param: str
-
-#     @classmethod
-#     def as_form(
-#         cls,
-#         any_param: str = Form(...),
-#     ) -> AnyForm:
-#         return cls(any_param=any_param)
-
-
-# class Test1(BaseModel):
-#     a: str
-
-# @as_form
-# class Test(BaseModel):
-#     name: str
-#     pkg: str
-#     title: str
-#     text: str
-
-# @app.post('/me', response_model=Test)
-# async def me(request: Request, form: Test = Depends(Test.as_form)):
-#     return form
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -168,7 +97,7 @@ async def create_receipt3(request: Request, form: schemas.Receipt3Form = Depends
     msg = {"text": form.bigtext}
     print(msg)
     async with httpx.AsyncClient() as client:
-        response = await client.post('https://hooks.slack.com/services/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', json=msg)
+        response = await client.post(WEBHOOK_ADDR, json=msg)
         # URL hardcode part has to be changed.
     return crud.create_receipt3(db=db, receipt=form)
     # return form
