@@ -1,4 +1,5 @@
-# 가계부 DB 저장과 Slack 알림을 동시에! (개인 사이드 프로젝트 - INFP)
+# 가계부 DB 저장과 Slack 알림을 동시에!
+#### (개인 사이드 프로젝트 - INFP)
 
 ## 과정
 - Before & After <br>
